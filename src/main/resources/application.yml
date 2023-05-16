@@ -1,0 +1,41 @@
+server:
+  port: 8888
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/binance?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+    hikari:
+      connection-timeout: 1000
+      validation-timeout: 1000
+      idle-timeout: 30000
+      max-lifetime: 60000
+      maximum-pool-size: 3
+      minimum-idle: 1
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    use-generated-keys: true
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  type-aliases-package: top.yumuing.community.entity
+
+binance:
+  isUseTest: true
+  proxy:
+    enable: true
+    ip: 127.0.0.1
+    port: 2022
+    username:
+    password:
+  test:
+    API-KEY: 123
+    SECRET: 123
