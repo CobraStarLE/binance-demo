@@ -640,22 +640,6 @@ public class TimestampUtil {
     }
 
     /**
-     * 减少时间戳的一些时间
-     *
-     * @param unixTimestamp
-     * @param unit
-     * @return
-     */
-    public static long minusSomeTime(long unixTimestamp, ChronoUnit unit) {
-        switch (unit) {
-            case MINUTES -> {return 1000 * 60 * 60 * (unixTimestamp / (1000 * 60 * 60));}
-            case SECONDS -> {return 1000 * 60 * (unixTimestamp / (1000 * 60));}
-            case MILLIS -> {return 1000 * (unixTimestamp / 1000);}
-            default -> {throw new UnsupportedOperationException("不支持该单位");}
-        }
-    }
-
-    /**
      * ZERO_ZERO-00:00:00<p>
      * TWENTY_THREE-23:59:59<p>
      * CURRENT-当前时间,如果为null，默认为当前的时间
