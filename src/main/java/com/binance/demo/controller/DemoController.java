@@ -5,6 +5,7 @@ import com.binance.connector.futures.client.impl.CMFuturesClientImpl;
 import com.binance.connector.futures.client.impl.UMFuturesClientImpl;
 import com.binance.demo.domain.market.TickerPrice;
 import com.binance.demo.util.JsonUtil;
+import com.binance.demo.util.TimestampUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,6 +48,7 @@ public class DemoController {
         parameters.put("side", "BUY");
         parameters.put("type", "MARKET");
         parameters.put("quantity", 1);
+        parameters.put("timestamp", TimestampUtil.getUnixTimeStamp()-1000);
         String resp=spot_client.createTrade().newOrder(parameters);
         System.out.println(resp);
     }
