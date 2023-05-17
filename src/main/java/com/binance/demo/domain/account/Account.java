@@ -125,10 +125,10 @@ public class Account {
   public List<AssetBalance> getBalances() {
     return balances;
   }
-
   public void setBalances(List<AssetBalance> balances) {
     this.balances = balances;
   }
+
 
   /**
    * Returns the asset balance for a given symbol.

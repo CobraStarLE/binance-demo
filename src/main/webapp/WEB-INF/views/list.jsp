@@ -35,6 +35,7 @@
                             <td>${tp.price}</td>
                             <td>
                                 <button type="button" class="btn btn-primary" onclick="binance.buy('${tp.symbol}')">买入</button>
+                                <button type="button" class="btn btn-primary" onclick="binance.sell('${tp.symbol}')">卖出</button>
                                 <button type="button" class="btn btn-primary" onclick="binance.kline('${tp.symbol}')">K线图</button>
                             </td>
                         </tr>
