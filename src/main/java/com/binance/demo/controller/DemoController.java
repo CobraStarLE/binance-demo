@@ -17,9 +17,8 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -27,6 +26,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
+@RequestMapping(method = {RequestMethod.GET,RequestMethod.POST} )
 public class DemoController {
 
     @Autowired
@@ -114,20 +114,29 @@ public class DemoController {
         }
     }
 
-    @PostMapping("/klines")
-    public void klines(String symbol) {
+    @RequestMapping (value = "/klines",method = RequestMethod.POST)
+    @ResponseBody
+    public List<String[]> klines(String symbol) {
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("symbol", symbol);
-        parameters.put("interval", "5m");
-        String resp = um_client.market().klines(parameters);
-        String data = JsonUtil.getJSONStringValue(resp, "data");
+        parameters.put("interval", "1d");
+        String resp = spot_client.createMarket().klines(parameters);
         System.out.println("-------");
-        System.out.println(data);
+        System.out.println(resp);
         System.out.println("-------");
 
-        List<String[]> list = JsonUtil.json2Obj(data, new TypeReference<List<String[]>>() {});
+        List<String[]> list = JsonUtil.json2Obj(resp, new TypeReference<List<String[]>>() {});
         System.out.println(list.size());
         System.out.println();
+
+        return list;
+    }
+
+    @RequestMapping (value = "/to/klinePage",method = RequestMethod.GET)
+    public ModelAndView toklinesPage(String symbol) {
+        ModelAndView mv=new ModelAndView("kline");
+        mv.addObject("symbol",symbol);
+        return mv;
     }
 
     private boolean isContainsSymbol(String symbol,List<String> asserts) {

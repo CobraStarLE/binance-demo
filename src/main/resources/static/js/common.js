@@ -2,7 +2,7 @@ var binance = {
     url: {
         buy: '/buy',
         sell: '/sell',
-        klines: '/klines'
+        to_klines: '/to/klinePage'
     },
     buy: function (symbol) {
         $.post(binance.url.buy + "?symbol=" + symbol, function (result) {
@@ -15,9 +15,8 @@ var binance = {
         });
     },
     kline: function (symbol) {
-        alert(symbol);
-        $.post(binance.url.klines + "?symbol=" + symbol, function (result) {
-            alert('购买成功！');
-        });
+        var action=binance.url.to_klines+"?symbol=" + symbol;
+        var tempwindow=window.open('_blank');
+        tempwindow.location=action;
     }
 }
