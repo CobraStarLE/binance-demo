@@ -50,3 +50,33 @@ binance:
   test:
     API-KEY: 123
     SECRET: 123
+
+## nacos注册中心配置
+#spring:
+#  cloud:
+#    nacos:
+#      discovery:
+#        namespace: 5bc37a7e-eafd-4539-8180-3811cd31fd1c
+#        server-addr: http://nacos-live-stage.eyolo.net:80
+#        service: ${spring.application.name}
+
+# Tomcat
+#server:
+#  tomcat:
+#    uri-encoding: UTF-8
+#    #最小线程数
+#    min-spare-threads: 500
+#    #最大线程数
+#    max-threads: 2500
+#    #最大链接数
+#    max-connections: 6500
+#    #最大等待队列长度
+#    accept-count: 1000
+#    #请求头最大长度kb
+#    max-http-header-size: 1048576
+#    #请请求体最大长度kb
+#    #max-http-post-size: 2097152
+#  #服务http端口
+#  #port: 8080
+#  #链接建立超时时间
+#  connection-timeout: 12000

@@ -1,0 +1,47 @@
+spring:
+  redis:
+    # redis数据库索引，默认为0
+    database: 0
+    # redis服务器连接密码，默认无密码
+    password: eyolo.net
+    cluster:
+      nodes: redis-cluster-g1-01.stage.live.eyolo.net:7001,redis-cluster-g1-02.stage.live.eyolo.net:7001,redis-cluster-g1-03.stage.live.eyolo.net:7001
+      max-redirects: 3
+    lettuce:
+      pool:
+        # redis最大连接数，默认为8
+        max-active: 100
+        # redis最大阻塞等待时间默认为-1
+        max-wait: PT10S
+        # redis最大空闲连接数，默认为8
+        max-idle: 100
+        # redis最小空闲连接数，默认为0
+        min-idle: 10
+    # redis数据库连接超时时间
+    timeout: 5000
+    redisson:
+      config:
+        clusterServersConfig:
+          idleConnectionTimeout: 10000
+          connectTimeout: 10000
+          pingConnectionInterval: 1000
+          timeout: 30000
+          retryAttempts: 3
+          retryInterval: 1500
+          subscriptionsPerConnection: 5
+          clientName: null
+          slaveSubscriptionConnectionMinimumIdleSize: ${spring.redis.lettuce.pool.min-idle}
+          slaveSubscriptionConnectionPoolSize: ${spring.redis.lettuce.pool.max-idle}
+          slaveConnectionMinimumIdleSize: 20
+          slaveConnectionPoolSize: ${spring.redis.lettuce.pool.max-idle}
+          masterConnectionMinimumIdleSize: ${spring.redis.lettuce.pool.min-idle}
+          masterConnectionPoolSize: 64
+          readMode: "SLAVE"
+          nodeAddresses:
+            - "redis://redis-cluster-g1-01.stage.live.eyolo.net:7001"
+            - "redis://redis-cluster-g1-02.stage.live.eyolo.net:7001"
+            - "redis://redis-cluster-g1-03.stage.live.eyolo.net:7001"
+          scanInterval: 1000
+        threads: 0
+        nettyThreads: 0
+        "transportMode": 'NIO'

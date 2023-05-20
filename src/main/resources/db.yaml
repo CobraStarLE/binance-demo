@@ -1,0 +1,36 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://eyolo_major:Eyolo1234@mongodb-g1-01.stage.live.eyolo.net:27017,mongodb-g1-02.stage.live.eyolo.net:27017,mongodb-g1-03.stage.live.eyolo.net:27017/eyolo_live_mongo_major
+      auto-index-creation: true
+  datasource:
+    dynamic:
+      hikari: # 全局hikariCP参数，所有值和默认保持一致。(现已支持的参数如下,不清楚含义不要乱设置)
+        catalog:
+        connection-timeout: 30000  #数据库连接超时时间,默认30秒，即30000
+        validation-timeout:
+        idle-timeout: 180000  # 空闲连接存活最大时间，默认600000（10分钟）
+        leak-detection-threshold:
+        max-lifetime: 1800000  # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+        max-pool-size: 10  # 连接池最大连接数，默认是10
+        min-idle: 5 #最小空闲连接数量
+        connection-test-query: SELECT 1
+        is-auto-commit: true # 此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      primary: live_master #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        live_master:
+          url: jdbc:mysql://mysql-g1-01.stage.live.eyolo.net:3306/eyolo_live_major?autoReconnect=true&failOverReadOnly=false&useUnicode=true&character_set_server=utf8mb4&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&useJDBCCompliantTimezoneShift=true&rewriteBatchedStatements=true&allowMultiQueries=true
+          username: eyolo_major
+          password: Eyolomajor@1234
+          driver-class-name: com.mysql.cj.jdbc.Driver  # 3.2.0开始支持SPI可省略此配置
+        live_slave_0:
+          url: jdbc:mysql://mysql-g1-02.stage.live.eyolo.net:3306/eyolo_live_major?autoReconnect=true&failOverReadOnly=false&useUnicode=true&character_set_server=utf8mb4&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true&allowMultiQueries=true
+          username: eyolo_major
+          password: Eyolomajor@1234
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        live_slave_1:
+          url: jdbc:mysql://mysql-g1-03.stage.live.eyolo.net:3306/eyolo_live_major?autoReconnect=true&failOverReadOnly=false&useUnicode=true&character_set_server=utf8mb4&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true&allowMultiQueries=true
+          username: eyolo_major
+          password: Eyolomajor@1234
+          driver-class-name: com.mysql.cj.jdbc.Driver
