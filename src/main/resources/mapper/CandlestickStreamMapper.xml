@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.binance.demo.mapper.CandlestickStreamMapper">
+
+    <resultMap id="BaseResultMap" type="com.binance.demo.entity.CandlestickStream">
+            <result property="eventType" column="event_type" jdbcType="VARCHAR"/>
+            <result property="eventTime" column="event_time" jdbcType="BIGINT"/>
+            <result property="symbol" column="symbol" jdbcType="VARCHAR"/>
+            <result property="openTime" column="open_time" jdbcType="BIGINT"/>
+            <result property="closeTime" column="close_time" jdbcType="BIGINT"/>
+            <result property="open" column="open" jdbcType="VARCHAR"/>
+            <result property="high" column="high" jdbcType="VARCHAR"/>
+            <result property="low" column="low" jdbcType="VARCHAR"/>
+            <result property="close" column="close" jdbcType="VARCHAR"/>
+            <result property="volume" column="volume" jdbcType="VARCHAR"/>
+            <result property="intervalid" column="intervalId" jdbcType="VARCHAR"/>
+            <result property="firstTradeId" column="first_trade_id" jdbcType="BIGINT"/>
+            <result property="lastTradeId" column="last_trade_id" jdbcType="BIGINT"/>
+            <result property="quoteAssetVolume" column="quote_asset_volume" jdbcType="VARCHAR"/>
+            <result property="numberOfTrades" column="number_of_trades" jdbcType="BIGINT"/>
+            <result property="buyBaseVolume" column="buy_base_volume" jdbcType="VARCHAR"/>
+            <result property="buyQuoteVolume" column="buy_quote_volume" jdbcType="VARCHAR"/>
+            <result property="barFinal" column="bar_final" jdbcType="BIT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        event_type,event_time,symbol,
+        open_time,close_time,open,
+        high,low,close,
+        volume,intervalId,first_trade_id,
+        last_trade_id,quote_asset_volume,number_of_trades,
+        buy_base_volume,buy_quote_volume,bar_final
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from CandlestickStream
+        where 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from CandlestickStream
+        where 
+    </delete>
+    <insert id="insert">
+        insert into CandlestickStream
+        ( event_type,event_time,symbol
+        ,open_time,close_time,open
+        ,high,low,close
+        ,volume,intervalId,first_trade_id
+        ,last_trade_id,quote_asset_volume,number_of_trades
+        ,buy_base_volume,buy_quote_volume,bar_final
+        )
+        values (#{eventType,jdbcType=VARCHAR},#{eventTime,jdbcType=BIGINT},#{symbol,jdbcType=VARCHAR}
+        ,#{openTime,jdbcType=BIGINT},#{closeTime,jdbcType=BIGINT},#{open,jdbcType=VARCHAR}
+        ,#{high,jdbcType=VARCHAR},#{low,jdbcType=VARCHAR},#{close,jdbcType=VARCHAR}
+        ,#{volume,jdbcType=VARCHAR},#{intervalid,jdbcType=VARCHAR},#{firstTradeId,jdbcType=BIGINT}
+        ,#{lastTradeId,jdbcType=BIGINT},#{quoteAssetVolume,jdbcType=VARCHAR},#{numberOfTrades,jdbcType=BIGINT}
+        ,#{buyBaseVolume,jdbcType=VARCHAR},#{buyQuoteVolume,jdbcType=VARCHAR},#{barFinal,jdbcType=BIT}
+        )
+    </insert>
+    <insert id="insertSelective">
+        insert into CandlestickStream
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="eventType != null">event_type,</if>
+                <if test="eventTime != null">event_time,</if>
+                <if test="symbol != null">symbol,</if>
+                <if test="openTime != null">open_time,</if>
+                <if test="closeTime != null">close_time,</if>
+                <if test="open != null">open,</if>
+                <if test="high != null">high,</if>
+                <if test="low != null">low,</if>
+                <if test="close != null">close,</if>
+                <if test="volume != null">volume,</if>
+                <if test="intervalid != null">intervalId,</if>
+                <if test="firstTradeId != null">first_trade_id,</if>
+                <if test="lastTradeId != null">last_trade_id,</if>
+                <if test="quoteAssetVolume != null">quote_asset_volume,</if>
+                <if test="numberOfTrades != null">number_of_trades,</if>
+                <if test="buyBaseVolume != null">buy_base_volume,</if>
+                <if test="buyQuoteVolume != null">buy_quote_volume,</if>
+                <if test="barFinal != null">bar_final,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="eventType != null">event_type = #{eventType,jdbcType=VARCHAR},</if>
+                <if test="eventTime != null">event_time = #{eventTime,jdbcType=BIGINT},</if>
+                <if test="symbol != null">symbol = #{symbol,jdbcType=VARCHAR},</if>
+                <if test="openTime != null">open_time = #{openTime,jdbcType=BIGINT},</if>
+                <if test="closeTime != null">close_time = #{closeTime,jdbcType=BIGINT},</if>
+                <if test="open != null">open = #{open,jdbcType=VARCHAR},</if>
+                <if test="high != null">high = #{high,jdbcType=VARCHAR},</if>
+                <if test="low != null">low = #{low,jdbcType=VARCHAR},</if>
+                <if test="close != null">close = #{close,jdbcType=VARCHAR},</if>
+                <if test="volume != null">volume = #{volume,jdbcType=VARCHAR},</if>
+                <if test="intervalid != null">intervalId = #{intervalid,jdbcType=VARCHAR},</if>
+                <if test="firstTradeId != null">first_trade_id = #{firstTradeId,jdbcType=BIGINT},</if>
+                <if test="lastTradeId != null">last_trade_id = #{lastTradeId,jdbcType=BIGINT},</if>
+                <if test="quoteAssetVolume != null">quote_asset_volume = #{quoteAssetVolume,jdbcType=VARCHAR},</if>
+                <if test="numberOfTrades != null">number_of_trades = #{numberOfTrades,jdbcType=BIGINT},</if>
+                <if test="buyBaseVolume != null">buy_base_volume = #{buyBaseVolume,jdbcType=VARCHAR},</if>
+                <if test="buyQuoteVolume != null">buy_quote_volume = #{buyQuoteVolume,jdbcType=VARCHAR},</if>
+                <if test="barFinal != null">bar_final = #{barFinal,jdbcType=BIT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.binance.demo.entity.CandlestickStream">
+        update CandlestickStream
+        <set>
+                <if test="eventType != null">
+                    event_type = #{eventType,jdbcType=VARCHAR},
+                </if>
+                <if test="eventTime != null">
+                    event_time = #{eventTime,jdbcType=BIGINT},
+                </if>
+                <if test="symbol != null">
+                    symbol = #{symbol,jdbcType=VARCHAR},
+                </if>
+                <if test="openTime != null">
+                    open_time = #{openTime,jdbcType=BIGINT},
+                </if>
+                <if test="closeTime != null">
+                    close_time = #{closeTime,jdbcType=BIGINT},
+                </if>
+                <if test="open != null">
+                    open = #{open,jdbcType=VARCHAR},
+                </if>
+                <if test="high != null">
+                    high = #{high,jdbcType=VARCHAR},
+                </if>
+                <if test="low != null">
+                    low = #{low,jdbcType=VARCHAR},
+                </if>
+                <if test="close != null">
+                    close = #{close,jdbcType=VARCHAR},
+                </if>
+                <if test="volume != null">
+                    volume = #{volume,jdbcType=VARCHAR},
+                </if>
+                <if test="intervalid != null">
+                    intervalId = #{intervalid,jdbcType=VARCHAR},
+                </if>
+                <if test="firstTradeId != null">
+                    first_trade_id = #{firstTradeId,jdbcType=BIGINT},
+                </if>
+                <if test="lastTradeId != null">
+                    last_trade_id = #{lastTradeId,jdbcType=BIGINT},
+                </if>
+                <if test="quoteAssetVolume != null">
+                    quote_asset_volume = #{quoteAssetVolume,jdbcType=VARCHAR},
+                </if>
+                <if test="numberOfTrades != null">
+                    number_of_trades = #{numberOfTrades,jdbcType=BIGINT},
+                </if>
+                <if test="buyBaseVolume != null">
+                    buy_base_volume = #{buyBaseVolume,jdbcType=VARCHAR},
+                </if>
+                <if test="buyQuoteVolume != null">
+                    buy_quote_volume = #{buyQuoteVolume,jdbcType=VARCHAR},
+                </if>
+                <if test="barFinal != null">
+                    bar_final = #{barFinal,jdbcType=BIT},
+                </if>
+        </set>
+        where  
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.binance.demo.entity.CandlestickStream">
+        update CandlestickStream
+        set 
+            event_type =  #{eventType,jdbcType=VARCHAR},
+            event_time =  #{eventTime,jdbcType=BIGINT},
+            symbol =  #{symbol,jdbcType=VARCHAR},
+            open_time =  #{openTime,jdbcType=BIGINT},
+            close_time =  #{closeTime,jdbcType=BIGINT},
+            open =  #{open,jdbcType=VARCHAR},
+            high =  #{high,jdbcType=VARCHAR},
+            low =  #{low,jdbcType=VARCHAR},
+            close =  #{close,jdbcType=VARCHAR},
+            volume =  #{volume,jdbcType=VARCHAR},
+            intervalId =  #{intervalid,jdbcType=VARCHAR},
+            first_trade_id =  #{firstTradeId,jdbcType=BIGINT},
+            last_trade_id =  #{lastTradeId,jdbcType=BIGINT},
+            quote_asset_volume =  #{quoteAssetVolume,jdbcType=VARCHAR},
+            number_of_trades =  #{numberOfTrades,jdbcType=BIGINT},
+            buy_base_volume =  #{buyBaseVolume,jdbcType=VARCHAR},
+            buy_quote_volume =  #{buyQuoteVolume,jdbcType=VARCHAR},
+            bar_final =  #{barFinal,jdbcType=BIT}
+        where  
+    </update>
+</mapper>

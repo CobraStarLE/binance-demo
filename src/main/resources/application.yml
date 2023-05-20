@@ -11,12 +11,12 @@ spring:
         enabled: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/binance?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://127.0.0.1:3306/binance?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: root
     password: 123456
     hikari:
-      connection-timeout: 1000
-      validation-timeout: 1000
+      connection-timeout: 10000
+      validation-timeout: 10000
       idle-timeout: 30000
       max-lifetime: 60000
       maximum-pool-size: 3
@@ -37,7 +37,7 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     use-generated-keys: true
   mapper-locations: classpath*:mapper/**/*Mapper.xml
-  type-aliases-package: top.yumuing.community.entity
+  type-aliases-package: com.binance.demo.entity
 
 binance:
   isUseTest: true
