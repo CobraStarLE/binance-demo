@@ -1,7 +1,9 @@
 package com.binance.demo.config;
 
 import com.binance.connector.client.SpotClient;
+import com.binance.connector.client.WebSocketStreamClient;
 import com.binance.connector.client.impl.SpotClientImpl;
+import com.binance.connector.client.impl.WebSocketStreamClientImpl;
 import com.binance.connector.futures.client.impl.CMFuturesClientImpl;
 import com.binance.connector.futures.client.impl.FuturesClientImpl;
 import com.binance.connector.futures.client.impl.UMFuturesClientImpl;
@@ -73,6 +75,13 @@ public class BinanceConfiguration {
         setProxy(client);
         return client;
     }
+
+    @Bean
+    public WebSocketStreamClient spot_ws_client() {
+        WebSocketStreamClient client = new WebSocketStreamClientImpl();
+        return client;
+    }
+
 
     private void setProxy(SpotClientImpl client){
         if (proxy_enable) {

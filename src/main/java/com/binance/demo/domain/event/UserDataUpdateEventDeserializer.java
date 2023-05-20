@@ -22,46 +22,49 @@ import java.io.IOException;
  */
 public class UserDataUpdateEventDeserializer extends JsonDeserializer<com.binance.api.client.domain.event.UserDataUpdateEvent> {
 
-  private ObjectMapper mapper;
+    private ObjectMapper mapper;
 
-  @Override
-  public com.binance.api.client.domain.event.UserDataUpdateEvent deserialize(JsonParser jp, DeserializationContext ctx) throws IOException {
+    @Override
+    public com.binance.api.client.domain.event.UserDataUpdateEvent deserialize(JsonParser jp, DeserializationContext ctx) throws IOException {
 
-    if (mapper == null) {
-      mapper = new ObjectMapper();
+        if (mapper == null) {
+            mapper = new ObjectMapper();
+        }
+
+        ObjectCodec oc = jp.getCodec();
+        JsonNode node = oc.readTree(jp);
+        String json = node.toString();
+
+        final String eventTypeId = node.get("e").asText();
+        final Long eventTime = node.get("E").asLong();
+        UserDataUpdateEventType userDataUpdateEventType = UserDataUpdateEventType.fromEventTypeId(eventTypeId);
+
+        com.binance.api.client.domain.event.UserDataUpdateEvent userDataUpdateEvent = new UserDataUpdateEvent();
+        userDataUpdateEvent.setEventType(userDataUpdateEventType);
+        userDataUpdateEvent.setEventTime(eventTime);
+
+        if (userDataUpdateEventType == UserDataUpdateEventType.ACCOUNT_POSITION_UPDATE) {
+            com.binance.api.client.domain.event.AccountUpdateEvent accountUpdateEvent = getUserDataUpdateEventDetail(json, AccountUpdateEvent.class, mapper);
+            userDataUpdateEvent.setOutboundAccountPositionUpdateEvent(accountUpdateEvent);
+        }
+        else if (userDataUpdateEventType == UserDataUpdateEventType.BALANCE_UPDATE) {
+            com.binance.api.client.domain.event.BalanceUpdateEvent balanceUpdateEvent = getUserDataUpdateEventDetail(json, BalanceUpdateEvent.class, mapper);
+            userDataUpdateEvent.setBalanceUpdateEvent(balanceUpdateEvent);
+        }
+        else { // userDataUpdateEventType == UserDataUpdateEventType.ORDER_TRADE_UPDATE
+            OrderTradeUpdateEvent orderTradeUpdateEvent = getUserDataUpdateEventDetail(json, OrderTradeUpdateEvent.class, mapper);
+            userDataUpdateEvent.setOrderTradeUpdateEvent(orderTradeUpdateEvent);
+        }
+
+        return userDataUpdateEvent;
     }
 
-    ObjectCodec oc = jp.getCodec();
-    JsonNode node = oc.readTree(jp);
-    String json = node.toString();
-
-    final String eventTypeId = node.get("e").asText();
-    final Long eventTime = node.get("E").asLong();
-    UserDataUpdateEventType userDataUpdateEventType = UserDataUpdateEventType.fromEventTypeId(eventTypeId);
-
-    com.binance.api.client.domain.event.UserDataUpdateEvent userDataUpdateEvent = new UserDataUpdateEvent();
-    userDataUpdateEvent.setEventType(userDataUpdateEventType);
-    userDataUpdateEvent.setEventTime(eventTime);
-
-    if (userDataUpdateEventType == UserDataUpdateEventType.ACCOUNT_POSITION_UPDATE) {
-      com.binance.api.client.domain.event.AccountUpdateEvent accountUpdateEvent = getUserDataUpdateEventDetail(json, AccountUpdateEvent.class, mapper);
-      userDataUpdateEvent.setOutboundAccountPositionUpdateEvent(accountUpdateEvent);
-    } else if (userDataUpdateEventType == UserDataUpdateEventType.BALANCE_UPDATE) {
-      com.binance.api.client.domain.event.BalanceUpdateEvent balanceUpdateEvent = getUserDataUpdateEventDetail(json, BalanceUpdateEvent.class, mapper);
-      userDataUpdateEvent.setBalanceUpdateEvent(balanceUpdateEvent);
-    } else { // userDataUpdateEventType == UserDataUpdateEventType.ORDER_TRADE_UPDATE
-      OrderTradeUpdateEvent orderTradeUpdateEvent = getUserDataUpdateEventDetail(json, OrderTradeUpdateEvent.class, mapper);
-      userDataUpdateEvent.setOrderTradeUpdateEvent(orderTradeUpdateEvent);
+    public <T> T getUserDataUpdateEventDetail(String json, Class<T> clazz, ObjectMapper mapper) {
+        try {
+            return mapper.readValue(json, clazz);
+        }
+        catch (IOException e) {
+            throw new BinanceApiException(e);
+        }
     }
-
-    return userDataUpdateEvent;
-  }
-
-  public <T> T getUserDataUpdateEventDetail(String json, Class<T> clazz, ObjectMapper mapper) {
-    try {
-      return mapper.readValue(json, clazz);
-    } catch (IOException e) {
-      throw new BinanceApiException(e);
-    }
-  }
 }

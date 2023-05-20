@@ -21,6 +21,14 @@ spring:
       max-lifetime: 60000
       maximum-pool-size: 3
       minimum-idle: 1
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    consumer:
+      group-id: my-group
+      auto-offset-reset: earliest
+    producer:
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 mybatis-plus:
   configuration:

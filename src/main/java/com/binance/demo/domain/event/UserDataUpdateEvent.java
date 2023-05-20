@@ -24,107 +24,117 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @JsonDeserialize(using = UserDataUpdateEventDeserializer.class)
 public class UserDataUpdateEvent {
 
-  private UserDataUpdateEventType eventType;
+    private UserDataUpdateEventType eventType;
 
-  private long eventTime;
+    private long eventTime;
 
-  private com.binance.api.client.domain.event.AccountUpdateEvent outboundAccountPositionUpdateEvent;
+    private com.binance.api.client.domain.event.AccountUpdateEvent outboundAccountPositionUpdateEvent;
 
-  private com.binance.api.client.domain.event.BalanceUpdateEvent balanceUpdateEvent;
+    private com.binance.api.client.domain.event.BalanceUpdateEvent balanceUpdateEvent;
 
-  private OrderTradeUpdateEvent orderTradeUpdateEvent;
+    private OrderTradeUpdateEvent orderTradeUpdateEvent;
 
-  public UserDataUpdateEventType getEventType() {
-    return eventType;
-  }
-
-  public void setEventType(UserDataUpdateEventType eventType) {
-    this.eventType = eventType;
-  }
-
-  public long getEventTime() {
-    return eventTime;
-  }
-
-  public void setEventTime(long eventTime) {
-    this.eventTime = eventTime;
-  }
-
-  /**
-   * @Deprecated: left in for backwards compatibility. Use getOutboundAccountPositionUpdateEvent() instead, as that is what the Binance API documentation calls it.
-   */
-  @Deprecated
-  public com.binance.api.client.domain.event.AccountUpdateEvent getAccountUpdateEvent() {
-    return outboundAccountPositionUpdateEvent;
-  }
-
-  public com.binance.api.client.domain.event.AccountUpdateEvent getOutboundAccountPositionUpdateEvent() {
-    return outboundAccountPositionUpdateEvent;
-  }
-
-  public void setOutboundAccountPositionUpdateEvent(AccountUpdateEvent accountUpdateEvent) {
-    this.outboundAccountPositionUpdateEvent = accountUpdateEvent;
-  }
-
-  public com.binance.api.client.domain.event.BalanceUpdateEvent getBalanceUpdateEvent() {
-    return balanceUpdateEvent;
-  }
-
-  public void setBalanceUpdateEvent(BalanceUpdateEvent balanceUpdateEvent) {
-    this.balanceUpdateEvent = balanceUpdateEvent;
-  }
-
-  public OrderTradeUpdateEvent getOrderTradeUpdateEvent() {
-    return orderTradeUpdateEvent;
-  }
-
-  public void setOrderTradeUpdateEvent(OrderTradeUpdateEvent orderTradeUpdateEvent) {
-    this.orderTradeUpdateEvent = orderTradeUpdateEvent;
-  }
-
-  @Override
-  public String toString() {
-    ToStringBuilder sb = new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
-        .append("eventType", eventType)
-        .append("eventTime", eventTime);
-    if (eventType == UserDataUpdateEventType.ACCOUNT_POSITION_UPDATE) {
-      sb.append("outboundAccountPositionUpdateEvent", outboundAccountPositionUpdateEvent);
-    } else if (eventType == UserDataUpdateEventType.BALANCE_UPDATE) {
-      sb.append("balanceUpdateEvent", balanceUpdateEvent);
-    } else {
-      sb.append("orderTradeUpdateEvent", orderTradeUpdateEvent);
-    }
-    return sb.toString();
-  }
-
-  public enum UserDataUpdateEventType {
-    /** Corresponds to "outboundAccountPosition" events. */
-    ACCOUNT_POSITION_UPDATE("outboundAccountPosition"),
-    /** Corresponds to "balanceUpdate" events. */
-    BALANCE_UPDATE("balanceUpdate"),
-    /** Corresponds to "executionReport" events. */
-    ORDER_TRADE_UPDATE("executionReport"),
-    ;
-
-    private final String eventTypeId;
-
-    UserDataUpdateEventType(String eventTypeId) {
-      this.eventTypeId = eventTypeId;
+    public UserDataUpdateEventType getEventType() {
+        return eventType;
     }
 
-    public String getEventTypeId() {
-      return eventTypeId;
+    public void setEventType(UserDataUpdateEventType eventType) {
+        this.eventType = eventType;
     }
 
-    public static UserDataUpdateEventType fromEventTypeId(String eventTypeId) {
-      if (ORDER_TRADE_UPDATE.eventTypeId.equals(eventTypeId)) {
-        return ORDER_TRADE_UPDATE;
-      } else if (ACCOUNT_POSITION_UPDATE.eventTypeId.equals(eventTypeId)) {
-        return ACCOUNT_POSITION_UPDATE;
-      } else if (BALANCE_UPDATE.eventTypeId.equals(eventTypeId)) {
-        return BALANCE_UPDATE;
-      }
-      throw new UnsupportedEventException("Unrecognized user data update event type id: " + eventTypeId);
+    public long getEventTime() {
+        return eventTime;
     }
-  }
+
+    public void setEventTime(long eventTime) {
+        this.eventTime = eventTime;
+    }
+
+    /**
+     * @Deprecated: left in for backwards compatibility. Use getOutboundAccountPositionUpdateEvent() instead, as that is what the Binance API documentation calls it.
+     */
+    @Deprecated
+    public com.binance.api.client.domain.event.AccountUpdateEvent getAccountUpdateEvent() {
+        return outboundAccountPositionUpdateEvent;
+    }
+
+    public com.binance.api.client.domain.event.AccountUpdateEvent getOutboundAccountPositionUpdateEvent() {
+        return outboundAccountPositionUpdateEvent;
+    }
+
+    public void setOutboundAccountPositionUpdateEvent(AccountUpdateEvent accountUpdateEvent) {
+        this.outboundAccountPositionUpdateEvent = accountUpdateEvent;
+    }
+
+    public com.binance.api.client.domain.event.BalanceUpdateEvent getBalanceUpdateEvent() {
+        return balanceUpdateEvent;
+    }
+
+    public void setBalanceUpdateEvent(BalanceUpdateEvent balanceUpdateEvent) {
+        this.balanceUpdateEvent = balanceUpdateEvent;
+    }
+
+    public OrderTradeUpdateEvent getOrderTradeUpdateEvent() {
+        return orderTradeUpdateEvent;
+    }
+
+    public void setOrderTradeUpdateEvent(OrderTradeUpdateEvent orderTradeUpdateEvent) {
+        this.orderTradeUpdateEvent = orderTradeUpdateEvent;
+    }
+
+    @Override
+    public String toString() {
+        ToStringBuilder sb = new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
+                .append("eventType", eventType)
+                .append("eventTime", eventTime);
+        if (eventType == UserDataUpdateEventType.ACCOUNT_POSITION_UPDATE) {
+            sb.append("outboundAccountPositionUpdateEvent", outboundAccountPositionUpdateEvent);
+        }
+        else if (eventType == UserDataUpdateEventType.BALANCE_UPDATE) {
+            sb.append("balanceUpdateEvent", balanceUpdateEvent);
+        }
+        else {
+            sb.append("orderTradeUpdateEvent", orderTradeUpdateEvent);
+        }
+        return sb.toString();
+    }
+
+    public enum UserDataUpdateEventType {
+        /**
+         * Corresponds to "outboundAccountPosition" events.
+         */
+        ACCOUNT_POSITION_UPDATE("outboundAccountPosition"),
+        /**
+         * Corresponds to "balanceUpdate" events.
+         */
+        BALANCE_UPDATE("balanceUpdate"),
+        /**
+         * Corresponds to "executionReport" events.
+         */
+        ORDER_TRADE_UPDATE("executionReport"),
+        ;
+
+        private final String eventTypeId;
+
+        UserDataUpdateEventType(String eventTypeId) {
+            this.eventTypeId = eventTypeId;
+        }
+
+        public static UserDataUpdateEventType fromEventTypeId(String eventTypeId) {
+            if (ORDER_TRADE_UPDATE.eventTypeId.equals(eventTypeId)) {
+                return ORDER_TRADE_UPDATE;
+            }
+            else if (ACCOUNT_POSITION_UPDATE.eventTypeId.equals(eventTypeId)) {
+                return ACCOUNT_POSITION_UPDATE;
+            }
+            else if (BALANCE_UPDATE.eventTypeId.equals(eventTypeId)) {
+                return BALANCE_UPDATE;
+            }
+            throw new UnsupportedEventException("Unrecognized user data update event type id: " + eventTypeId);
+        }
+
+        public String getEventTypeId() {
+            return eventTypeId;
+        }
+    }
 }

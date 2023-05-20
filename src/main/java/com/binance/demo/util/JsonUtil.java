@@ -30,7 +30,7 @@ public class JsonUtil {
     private JsonUtil() {
     }
 
-    public static String[] jsonToStrArray(String json){
+    public static String[] json2StrArray(String json){
         try {
             return mapper.readValue(json,String[].class);
         } catch (JsonProcessingException e) {

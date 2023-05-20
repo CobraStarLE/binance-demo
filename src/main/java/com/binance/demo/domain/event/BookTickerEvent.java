@@ -105,8 +105,8 @@ public class BookTickerEvent {
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("eventType", "BookTicker")
-                .append("updateId", updateId).append("symbol", symbol).append("bidPrice", bidPrice)
-                .append("bidQuantity", bidQuantity).append("askPrice", askPrice).append("askQuantity", askQuantity)
-                .toString();
+                                                                                     .append("updateId", updateId).append("symbol", symbol).append("bidPrice", bidPrice)
+                                                                                     .append("bidQuantity", bidQuantity).append("askPrice", askPrice).append("askQuantity", askQuantity)
+                                                                                     .toString();
     }
 }
