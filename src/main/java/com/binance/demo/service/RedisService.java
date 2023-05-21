@@ -3,7 +3,6 @@ package com.binance.demo.service;
 import com.binance.demo.util.JsonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.commons.codec.digest.Md5Crypt;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisZSetCommands;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.SerializationUtils;
@@ -11,6 +10,7 @@ import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 @Service
 public class RedisService {
 
-    @Autowired
+    @Resource
     private StringRedisTemplate stringRedisTemplate;
 
-    @Autowired
+    @Resource
     private RedisTemplate redisTemplate;
 
 

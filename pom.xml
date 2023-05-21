@@ -138,15 +138,19 @@
 		</dependency>
 		<!-- Redis -->
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<!--<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 			<version>${jedis.version}</version>
-		</dependency>
-		<dependency>
+		</dependency>-->
+		<!--<dependency>
 			<groupId>org.redisson</groupId>
 			<artifactId>redisson-spring-boot-starter</artifactId>
 			<version>${redisson-sps.version}</version>
-		</dependency>
+		</dependency>-->
 		<!-- Skywalking -->
 		<dependency>
 			<groupId>org.apache.skywalking</groupId>
