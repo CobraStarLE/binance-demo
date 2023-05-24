@@ -1,8 +1,12 @@
+var basePath=function (){
+    return $("#input_base").val();
+}
+
 var binance = {
     url: {
-        buy: '/buy',
-        sell: '/sell',
-        to_klines: '/to/klinePage'
+        buy: basePath()+'/buy',
+        sell: basePath()+'/sell',
+        to_klines: basePath()+'/to/klinePage'
     },
     buy: function (symbol) {
         $.post(binance.url.buy + "?symbol=" + symbol, function (result) {

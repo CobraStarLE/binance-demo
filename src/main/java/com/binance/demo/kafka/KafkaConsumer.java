@@ -15,14 +15,14 @@ public class KafkaConsumer {
     @Autowired
     private CandlestickStreamMapper candlestickStreamMapper;
 
-    @KafkaListener(topics = "my-topic", groupId = "my-group-id")
+    @KafkaListener(topics = "my-topic", groupId = "my-group-id",clientIdPrefix = "my-clientId-")
     public void consume(String message) {
-        System.out.println("Received message: " + message);
+//        System.out.println("Received message: " + message);
         CandlestickEvent event=JsonUtil.json2Pojo(message, CandlestickEvent.class);
         CandlestickStream stream=new CandlestickStream();
         BeanUtils.copyProperties(event,stream);
         this.candlestickStreamMapper.insert(stream);
-        System.out.println();
+//        System.out.println();
     }
 
 }

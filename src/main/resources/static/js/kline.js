@@ -4,6 +4,9 @@ var option;
 var symbol=$("#symbol").val();
 const upColor = '#00da3c';
 const downColor = '#ec0000';
+var basePath=function (){
+    return $("#input_base").val();
+}
 function splitData(rawData) {
     let categoryData = [];
     let values = [];
@@ -42,7 +45,7 @@ function calculateMA(dayCount, data) {
     }
     return result;
 }
-$.post('/klines?symbol='+symbol, function (rawData) {
+$.post(basePath()+'/klines?symbol='+symbol, function (rawData) {
     var data = splitData(rawData);
     myChart.setOption(
         (option = {

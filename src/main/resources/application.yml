@@ -1,5 +1,7 @@
 server:
   port: 8888
+  servlet:
+    context-path: /binance
 
 spring:
   mvc:
@@ -12,8 +14,10 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/binance?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
-    username: root
-    password: 123456
+#    username: root
+    username: binance
+#    password: 123456
+    password: Binance@1234
     hikari:
       connection-timeout: 10000
       validation-timeout: 10000
@@ -39,10 +43,14 @@ mybatis-plus:
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   type-aliases-package: com.binance.demo.entity
 
+logging:
+  level:
+    root: info
+    org.apache.ibatis.executor.BaseExecutor: warn
 binance:
-  isUseTest: true
+#  isUseTest: true
   proxy:
-    enable: true
+    enable: false
     ip: 127.0.0.1
     port: 2022
     username:

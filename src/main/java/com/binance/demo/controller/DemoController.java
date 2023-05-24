@@ -47,7 +47,7 @@ public class DemoController {
      * @param model
      * @return
      */
-    @GetMapping("/")
+    @GetMapping("/list")
     public String list(Model model) {
         List<AssetBalance> assetBalances = null;
         try {

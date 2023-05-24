@@ -4,12 +4,11 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
-    System.out.println(basePath);
 %>
-<base target="_self" href="<%=basePath%>">
 <!doctype html>
 <html lang="zh-CN">
 <head>
+    <base href="<%=basePath%>">
     <!-- 必须的 meta 标签 -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -46,7 +45,8 @@
                             </td>
                         </tr>
                     </c:forEach>
-                    <form id="kline_form" action="" method="post">
+                    <form>
+                        <input id="input_base" type="hidden" value="<%=basePath%>">
                     </form>
 
                 </tbody>
@@ -67,7 +67,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-Lge2E2XotzMiwH69/MXB72yLpwyENMiOKX8zS8Qo7LDCvaBIWGL+GlRQEKIpYR04" crossorigin="anonymous"></script>
 -->
-<script src="js/common.js" type="text/javascript"></script>
+<script src="<%=basePath%>/js/common.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function(){
 
